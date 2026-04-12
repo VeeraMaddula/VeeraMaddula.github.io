@@ -80,6 +80,21 @@ No build tools, frameworks, or dependencies required — it's a single HTML file
 
 ---
 
+## 📊 Analytics & Observability
+
+This portfolio is integrated with **Google Analytics (GA4)** for real-time visitor tracking and traffic insights.
+
+**Measurement ID:** `G-DDWQKWELRB`
+
+**What's being tracked:**
+- Real-time visitor activity
+- Page views and unique visitors
+- Visitor locations and demographics
+- Device and browser breakdown
+- Traffic sources and referrals
+
+**Dashboard:** [analytics.google.com](https://analytics.google.com)
+
 ## 📜 License
 
 © 2025 Veera Maddula. All rights reserved.
