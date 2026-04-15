@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Container Catch | Veera Maddula</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Outfit', sans-serif; background: #0a0e17; color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+a { color: #38bdf8; text-decoration: none; }
+.back-btn { position: fixed; top: 1.5rem; left: 1.5rem; display: flex; align-items: center; gap: 6px; color: #94a3b8; font-size: 0.9rem; transition: color 0.3s; }
+.back-btn:hover { color: #38bdf8; }
+.game-wrapper { max-width: 750px; width: 100%; background: #1a2235; border: 1px solid rgba(148,163,184,0.1); border-radius: 20px; padding: 2rem; }
+.game-header { text-align: center; margin-bottom: 12px; }
+.game-title { color: #38bdf8; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 4px; }
+.game-instructions { color: #94a3b8; font-size: 0.78rem; margin-bottom: 8px; }
+.stats { display: flex; justify-content: space-between; font-size: 0.85rem; color: #64748b; margin-bottom: 8px; }
+canvas { width: 100%; border-radius: 12px; background: #0f172a; display: block; }
+.controls { display: flex; gap: 10px; justify-content: center; margin-top: 12px; }
+.ctrl-btn { padding: 12px 28px; background: #0a0e17; border: 1px solid rgba(148,163,184,0.1); border-radius: 10px; color: #e2e8f0; font-size: 1.2rem; cursor: pointer; transition: all 0.3s; user-select: none; }
+.ctrl-btn:hover { border-color: #38bdf8; }
+.start-btn { padding: 12px 28px; background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); border-radius: 10px; color: #38bdf8; cursor: pointer; font-family: 'JetBrains Mono', monospace; }
+.start-btn:hover { background: rgba(56,189,248,0.25); }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  Back to Portfolio
+</a>
+
+<div class="game-wrapper">
+  <div class="game-header">
+    <div class="game-title">🐳 Container Catch</div>
+    <div class="game-instructions">📋 Use ← → arrow keys or tap buttons to move the ship. Catch 📦 containers for points. Avoid 🐛 bugs — they cost a life!</div>
+  </div>
+  <div class="stats">
+    <span>Score: <span id="dc-score" style="color:#34d399;">0</span></span>
+    <span>Lives: <span id="dc-lives" style="color:#f87171;">❤️❤️❤️</span></span>
+  </div>
+  <canvas id="dc-canvas"></canvas>
+  <div class="controls">
+    <button class="ctrl-btn" id="dc-left">←</button>
+    <button class="start-btn" onclick="dcStart()">Start Game</button>
+    <button class="ctrl-btn" id="dc-right">→</button>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('dc-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = 700; canvas.height = 400;
+let ship = { x: 318, w: 64, h: 20 }, items = [], score = 0, lives = 3, running = false, spawnInterval;
+
+function spawn() {
+  const isBug = Math.random() < 0.25;
+  items.push({ x: Math.random() * (canvas.width - 30), y: -30, w: 30, h: 30, speed: 2 + Math.random() * 2 + Math.floor(score/10)*0.5, bug: isBug });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#38bdf8';
+  ctx.beginPath();
+  ctx.roundRect(ship.x, canvas.height - 40, ship.w, ship.h, 6);
+  ctx.fill();
+  ctx.font = '14px JetBrains Mono';
+  ctx.fillStyle = '#0f172a';
+  ctx.fillText('🚢', ship.x + 22, canvas.height - 26);
+
+  items.forEach((item, i) => {
+    item.y += item.speed;
+    ctx.font = '22px serif';
+    ctx.fillText(item.bug ? '🐛' : '📦', item.x, item.y);
+
+    if (item.y > canvas.height - 50 && item.y < canvas.height - 15 && item.x + item.w > ship.x && item.x < ship.x + ship.w) {
+      if (item.bug) { lives--; updateLives(); } else { score++; }
+      document.getElementById('dc-score').textContent = score;
+      items.splice(i, 1);
+    } else if (item.y > canvas.height + 10) {
+      items.splice(i, 1);
+    }
+  });
+
+  if (lives <= 0) {
+    running = false;
+    clearInterval(spawnInterval);
+    ctx.fillStyle = '#f87171'; ctx.font = '28px Outfit';
+    ctx.fillText('Game Over! Score: ' + score, canvas.width/2 - 120, canvas.height/2);
+    ctx.fillStyle = '#94a3b8'; ctx.font = '14px JetBrains Mono';
+    ctx.fillText('Click Start to play again', canvas.width/2 - 95, canvas.height/2 + 30);
+    return;
+  }
+  if (running) requestAnimationFrame(draw);
+}
+
+function updateLives() { document.getElementById('dc-lives').textContent = '❤️'.repeat(Math.max(0, lives)); }
+
+function dcStart() {
+  score = 0; lives = 3; items = []; ship.x = 318; running = true;
+  document.getElementById('dc-score').textContent = '0';
+  updateLives();
+  clearInterval(spawnInterval);
+  spawnInterval = setInterval(() => { if (running) spawn(); }, 800);
+  draw();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft' && ship.x > 0) ship.x -= 30;
+  if (e.key === 'ArrowRight' && ship.x < canvas.width - ship.w) ship.x += 30;
+});
+
+const leftBtn = document.getElementById('dc-left');
+const rightBtn = document.getElementById('dc-right');
+let leftInterval, rightInterval;
+leftBtn.addEventListener('mousedown', () => { if(ship.x > 0) ship.x -= 30; leftInterval = setInterval(() => { if(ship.x > 0) ship.x -= 20; }, 100); });
+leftBtn.addEventListener('mouseup', () => clearInterval(leftInterval));
+leftBtn.addEventListener('mouseleave', () => clearInterval(leftInterval));
+leftBtn.addEventListener('touchstart', (e) => { e.preventDefault(); if(ship.x > 0) ship.x -= 30; });
+rightBtn.addEventListener('mousedown', () => { if(ship.x < canvas.width-ship.w) ship.x += 30; rightInterval = setInterval(() => { if(ship.x < canvas.width-ship.w) ship.x += 20; }, 100); });
+rightBtn.addEventListener('mouseup', () => clearInterval(rightInterval));
+rightBtn.addEventListener('mouseleave', () => clearInterval(rightInterval));
+rightBtn.addEventListener('touchstart', (e) => { e.preventDefault(); if(ship.x < canvas.width-ship.w) ship.x += 30; });
+</script>
+</body>
+</html>

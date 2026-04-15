@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline Runner | Veera Maddula</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Outfit', sans-serif; background: #0a0e17; color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+a { color: #38bdf8; text-decoration: none; }
+.back-btn { position: fixed; top: 1.5rem; left: 1.5rem; display: flex; align-items: center; gap: 6px; color: #94a3b8; font-size: 0.9rem; transition: color 0.3s; }
+.back-btn:hover { color: #38bdf8; }
+.game-wrapper { max-width: 700px; width: 100%; background: #1a2235; border: 1px solid rgba(148,163,184,0.1); border-radius: 20px; padding: 2rem; }
+.game-title { color: #818cf8; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; text-align: center; margin-bottom: 4px; }
+.game-instructions { color: #94a3b8; font-size: 0.78rem; text-align: center; margin-bottom: 16px; }
+.stages { display: flex; justify-content: center; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+.stage-pill { padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; border: 1px solid rgba(148,163,184,0.1); color: #64748b; }
+.stage-active { border-color: currentColor; }
+.stage-done { color: #34d399; }
+.arrow { color: #64748b; display: flex; align-items: center; }
+.health-bar { background: #0a0e17; border-radius: 8px; padding: 4px; margin-bottom: 16px; }
+.health-fill { height: 8px; border-radius: 6px; transition: width 0.5s; }
+.health-info { display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b; margin-bottom: 16px; }
+.error-box { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); border-radius: 12px; padding: 1.25rem; text-align: center; margin-bottom: 16px; }
+.error-label { font-size: 0.75rem; color: #f87171; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+.error-name { font-size: 1.1rem; font-weight: 600; }
+.error-stage { color: #94a3b8; font-size: 0.8rem; margin-top: 4px; }
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.option { padding: 14px; background: #0a0e17; border: 1px solid rgba(148,163,184,0.1); border-radius: 12px; cursor: pointer; transition: all 0.3s; text-align: center; }
+.option:hover { border-color: #818cf8; }
+.option-icon { font-size: 1.2rem; margin-bottom: 4px; }
+.option-text { font-size: 0.85rem; font-weight: 500; }
+.result { text-align: center; padding: 3rem; }
+.result-icon { font-size: 3rem; margin-bottom: 1rem; }
+.result-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+.result-info { color: #94a3b8; }
+.replay-btn { margin-top: 1rem; padding: 10px 24px; border: 1px solid; border-radius: 10px; cursor: pointer; font-family: 'JetBrains Mono', monospace; background: transparent; }
+@media (max-width: 500px) { .options { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  Back to Portfolio
+</a>
+
+<div class="game-wrapper" id="game"></div>
+
+<script>
+const stages = [
+  { name: 'Build', icon: '🔨', challenges: ['Compile Error','Missing Dependency','Syntax Bug','Null Reference'], color: '#38bdf8' },
+  { name: 'Test', icon: '🧪', challenges: ['Failing Unit Test','Timeout Error','Memory Leak','Race Condition'], color: '#818cf8' },
+  { name: 'Deploy', icon: '🚀', challenges: ['Config Mismatch','Port Conflict','Permission Denied','DNS Error'], color: '#34d399' }
+];
+
+const fixes = {
+  'Compile Error': [{ text:'Fix syntax & recompile', icon:'🔧', correct:true },{ text:'Restart server', icon:'🔄', correct:false },{ text:'Clear DNS cache', icon:'🌐', correct:false },{ text:'Add more RAM', icon:'💾', correct:false }],
+  'Missing Dependency': [{ text:'Run npm install / pip install', icon:'📦', correct:true },{ text:'Delete the project', icon:'🗑️', correct:false },{ text:'Reboot machine', icon:'🔄', correct:false },{ text:'Change port number', icon:'🔌', correct:false }],
+  'Syntax Bug': [{ text:'Review & fix the code', icon:'🔍', correct:true },{ text:'Increase timeout', icon:'⏱️', correct:false },{ text:'Scale horizontally', icon:'📊', correct:false },{ text:'Update DNS records', icon:'🌐', correct:false }],
+  'Null Reference': [{ text:'Add null check validation', icon:'✅', correct:true },{ text:'Restart database', icon:'🗄️', correct:false },{ text:'Clear browser cache', icon:'🧹', correct:false },{ text:'Update SSL cert', icon:'🔒', correct:false }],
+  'Failing Unit Test': [{ text:'Debug & fix test logic', icon:'🧪', correct:true },{ text:'Skip all tests', icon:'⏭️', correct:false },{ text:'Add more storage', icon:'💾', correct:false },{ text:'Change load balancer', icon:'⚖️', correct:false }],
+  'Timeout Error': [{ text:'Optimize query & increase timeout', icon:'⏱️', correct:true },{ text:'Delete logs', icon:'🗑️', correct:false },{ text:'Change font size', icon:'🔤', correct:false },{ text:'Update README', icon:'📝', correct:false }],
+  'Memory Leak': [{ text:'Profile & fix memory allocation', icon:'🧠', correct:true },{ text:'Change background color', icon:'🎨', correct:false },{ text:'Update git remote', icon:'📡', correct:false },{ text:'Rotate API keys', icon:'🔑', correct:false }],
+  'Race Condition': [{ text:'Add mutex / synchronization', icon:'🔒', correct:true },{ text:'Rename the file', icon:'📁', correct:false },{ text:'Add console.log', icon:'📋', correct:false },{ text:'Change region', icon:'🌍', correct:false }],
+  'Config Mismatch': [{ text:'Sync env config files', icon:'⚙️', correct:true },{ text:'Write more tests', icon:'🧪', correct:false },{ text:'Add comments', icon:'💬', correct:false },{ text:'Update profile pic', icon:'🖼️', correct:false }],
+  'Port Conflict': [{ text:'Change port or kill process', icon:'🔌', correct:true },{ text:'Clear cookies', icon:'🍪', correct:false },{ text:'Rebuild Docker image', icon:'🐳', correct:false },{ text:'Add SSL certificate', icon:'🔒', correct:false }],
+  'Permission Denied': [{ text:'Fix file permissions / IAM role', icon:'🔐', correct:true },{ text:'Change timezone', icon:'🕐', correct:false },{ text:'Increase font size', icon:'🔤', correct:false },{ text:'Update package.json', icon:'📦', correct:false }],
+  'DNS Error': [{ text:'Update DNS records in Route 53', icon:'🌐', correct:true },{ text:'Defragment disk', icon:'💽', correct:false },{ text:'Change wallpaper', icon:'🖼️', correct:false },{ text:'Run unit tests', icon:'🧪', correct:false }]
+};
+
+let currentStage = 0, hp = 100, score = 0;
+const game = document.getElementById('game');
+
+function renderStage() {
+  const stage = stages[currentStage];
+  const challenge = stage.challenges[Math.floor(Math.random() * stage.challenges.length)];
+  const solutions = (fixes[challenge] || fixes['Compile Error']).sort(() => Math.random() - 0.5);
+
+  game.innerHTML = `
+    <div class="game-title">🔄 Pipeline Runner</div>
+    <div class="game-instructions">📋 Fix errors at each stage to deploy successfully. Choose the correct fix!</div>
+    <div class="stages">
+      ${stages.map((s, i) => `
+        <div class="stage-pill ${i === currentStage ? 'stage-active' : ''} ${i < currentStage ? 'stage-done' : ''}" style="${i === currentStage ? 'background:'+s.color+'22;border-color:'+s.color+';color:'+s.color : i < currentStage ? 'color:#34d399' : ''}">
+          ${i < currentStage ? '✓' : s.icon} ${s.name}
+        </div>
+        ${i < stages.length - 1 ? '<div class="arrow">→</div>' : ''}
+      `).join('')}
+    </div>
+    <div class="health-bar"><div class="health-fill" style="width:${hp}%;background:${hp > 50 ? '#34d399' : hp > 25 ? '#fbbf24' : '#f87171'};"></div></div>
+    <div class="health-info"><span>Pipeline Health: ${hp}%</span><span>Score: <span style="color:#34d399;">${score}</span></span></div>
+    <div class="error-box">
+      <div class="error-label">⚠️ ERROR DETECTED</div>
+      <div class="error-name">${challenge}</div>
+      <div class="error-stage">Stage: ${stage.name}</div>
+    </div>
+    <div class="options" id="options">
+      ${solutions.map((s, i) => `
+        <div class="option" onclick="answer(${i}, ${s.correct})">
+          <div class="option-icon">${s.icon}</div>
+          <div class="option-text">${s.text}</div>
+        </div>
+      `).join('')}
+    </div>`;
+}
+
+function answer(idx, correct) {
+  const options = document.querySelectorAll('.option');
+  options.forEach(o => o.style.pointerEvents = 'none');
+
+  if (correct) {
+    options[idx].style.borderColor = '#34d399';
+    options[idx].style.background = 'rgba(52,211,153,0.1)';
+    score += 10;
+    setTimeout(() => {
+      currentStage++;
+      if (currentStage >= stages.length) {
+        game.innerHTML = `<div class="result"><div class="result-icon">🎉</div><div class="result-title" style="color:#34d399;">Pipeline Deployed!</div><div class="result-info">Score: ${score} | Health: ${hp}%</div><button class="replay-btn" style="border-color:#34d399;color:#34d399;" onclick="currentStage=0;hp=100;score=0;renderStage();">Play Again</button></div>`;
+      } else { renderStage(); }
+    }, 600);
+  } else {
+    options[idx].style.borderColor = '#f87171';
+    options[idx].style.background = 'rgba(248,113,113,0.1)';
+    hp -= 25;
+    if (hp <= 0) {
+      setTimeout(() => {
+        game.innerHTML = `<div class="result"><div class="result-icon">💥</div><div class="result-title" style="color:#f87171;">Pipeline Failed!</div><div class="result-info">Score: ${score}</div><button class="replay-btn" style="border-color:#f87171;color:#f87171;" onclick="currentStage=0;hp=100;score=0;renderStage();">Try Again</button></div>`;
+      }, 600);
+    } else {
+      setTimeout(renderStage, 600);
+    }
+  }
+}
+
+renderStage();
+</script>
+</body>
+</html>

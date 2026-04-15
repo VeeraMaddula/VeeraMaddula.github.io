@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal Quiz | Veera Maddula</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Outfit', sans-serif; background: #0a0e17; color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+a { color: #38bdf8; text-decoration: none; }
+.back-btn { position: fixed; top: 1.5rem; left: 1.5rem; display: flex; align-items: center; gap: 6px; color: #94a3b8; font-size: 0.9rem; transition: color 0.3s; }
+.back-btn:hover { color: #38bdf8; }
+.game-wrapper { max-width: 700px; width: 100%; }
+.terminal { background: #1a1a2e; border-radius: 12px; overflow: hidden; }
+.terminal-bar { background: #16213e; padding: 10px 16px; display: flex; align-items: center; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.dot-r { background: #ff5f57; }
+.dot-y { background: #ffbd2e; }
+.dot-g { background: #28c840; }
+.terminal-title { margin-left: auto; color: #64748b; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+.terminal-body { padding: 1.25rem; }
+.instructions { color: #34d399; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+.instructions-desc { color: #94a3b8; font-size: 0.78rem; margin-bottom: 16px; }
+#tq-output { min-height: 280px; max-height: 400px; overflow-y: auto; color: #e2e8f0; font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; line-height: 2; }
+.input-row { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+.input-row span { color: #34d399; font-family: 'JetBrains Mono', monospace; }
+#tq-input { flex: 1; background: transparent; border: none; outline: none; color: #e2e8f0; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+.hint-btn { background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.3); color: #fbbf24; padding: 4px 12px; border-radius: 6px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+.hint-btn:hover { background: rgba(251,191,36,0.25); }
+.status-bar { display: flex; justify-content: space-between; margin-top: 12px; color: #64748b; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  Back to Portfolio
+</a>
+
+<div class="game-wrapper">
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="terminal-title">devops-quiz ~ bash</span>
+    </div>
+    <div class="terminal-body">
+      <div class="instructions">📋 Instructions:</div>
+      <div class="instructions-desc">Type your answer and press Enter. Use the Hint button if stuck. Case-insensitive. 10 questions total.</div>
+      <div id="tq-output"></div>
+      <div class="input-row">
+        <span>$</span>
+        <input id="tq-input" type="text" autocomplete="off" placeholder="type your answer...">
+        <button class="hint-btn" onclick="tqHint()">Hint</button>
+      </div>
+    </div>
+  </div>
+  <div class="status-bar">
+    <span id="tq-progress">Question 1/10</span>
+    <span id="tq-score">Score: 0</span>
+  </div>
+</div>
+
+<script>
+const questions = [
+  { q: "What command lists files in Linux?", a: "ls", hints: ["It's 2 letters","Starts with 'l'"] },
+  { q: "What port does SSH use by default?", a: "22", hints: ["It's a number","Between 20-25"] },
+  { q: "Which command shows running processes?", a: "ps", hints: ["2 letters","Stands for 'process status'"] },
+  { q: "What does CI stand for in CI/CD?", a: "continuous integration", hints: ["Two words","First word: continuous"] },
+  { q: "Which tool is used for container orchestration?", a: "kubernetes", hints: ["Also called K8s","Greek for 'helmsman'"] },
+  { q: "What command shows disk usage in Linux?", a: "df", hints: ["2 letters","Stands for 'disk free'"] },
+  { q: "What file defines a Docker image?", a: "dockerfile", hints: ["One word","Starts with 'Docker'"] },
+  { q: "What does IAM stand for in AWS?", a: "identity and access management", hints: ["Three words","First word: Identity"] },
+  { q: "Which protocol does HTTPS use for encryption?", a: "tls", hints: ["3 letters","Replaced SSL"] },
+  { q: "What command shows network connections in Linux?", a: "netstat", hints: ["Starts with 'net'","7 letters"] }
+];
+let current = 0, score = 0, hintIdx = 0;
+const output = document.getElementById('tq-output');
+const input = document.getElementById('tq-input');
+
+function showQuestion() {
+  output.innerHTML += '<div style="color:#38bdf8;margin-top:8px;">[Q' + (current+1) + '] ' + questions[current].q + '</div>';
+  document.getElementById('tq-progress').textContent = 'Question ' + (current+1) + '/10';
+  input.focus();
+  output.scrollTop = output.scrollHeight;
+}
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && input.value.trim()) {
+    const ans = input.value.trim().toLowerCase();
+    const correct = questions[current].a.toLowerCase();
+    if (ans === correct) {
+      score++;
+      output.innerHTML += '<div style="color:#34d399;">✓ Correct!</div>';
+    } else {
+      output.innerHTML += '<div style="color:#f87171;">✗ Wrong! Answer: ' + questions[current].a + '</div>';
+    }
+    input.value = '';
+    current++;
+    hintIdx = 0;
+    document.getElementById('tq-score').textContent = 'Score: ' + score;
+    if (current < questions.length) {
+      setTimeout(showQuestion, 800);
+    } else {
+      setTimeout(() => {
+        output.innerHTML += '<div style="margin-top:12px;color:#38bdf8;font-size:1rem;">🎉 Quiz Complete! Score: ' + score + '/10</div>';
+        output.innerHTML += '<div style="color:#94a3b8;font-size:0.8rem;">' + (score >= 8 ? 'DevOps Master!' : score >= 5 ? 'Good knowledge! Keep learning.' : 'Keep practicing!') + '</div>';
+        input.style.display = 'none';
+        document.getElementById('tq-progress').textContent = 'Complete!';
+      }, 800);
+    }
+  }
+});
+
+function tqHint() {
+  if (current < questions.length && hintIdx < questions[current].hints.length) {
+    output.innerHTML += '<div style="color:#fbbf24;">💡 Hint: ' + questions[current].hints[hintIdx] + '</div>';
+    hintIdx++;
+    output.scrollTop = output.scrollHeight;
+  }
+}
+
+showQuestion();
+</script>
+</body>
+</html>

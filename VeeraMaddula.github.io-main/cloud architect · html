@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Architect | Veera Maddula</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Outfit', sans-serif; background: #0a0e17; color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+a { color: #38bdf8; text-decoration: none; }
+.back-btn { position: fixed; top: 1.5rem; left: 1.5rem; display: flex; align-items: center; gap: 6px; color: #94a3b8; font-size: 0.9rem; transition: color 0.3s; }
+.back-btn:hover { color: #38bdf8; }
+.game-wrapper { max-width: 750px; width: 100%; background: #1a2235; border: 1px solid rgba(148,163,184,0.1); border-radius: 20px; padding: 2rem; }
+.game-header { text-align: center; margin-bottom: 16px; }
+.game-title { color: #fbbf24; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 4px; }
+.game-instructions { color: #94a3b8; font-size: 0.78rem; margin-bottom: 8px; }
+.stats { display: flex; justify-content: space-between; font-size: 0.85rem; color: #64748b; margin-bottom: 12px; }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.col-title { color: #38bdf8; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.col-title.desc { color: #818cf8; }
+.items { display: flex; flex-direction: column; gap: 6px; }
+.svc-btn { padding: 10px 14px; background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.15); border-radius: 10px; cursor: pointer; font-size: 0.82rem; color: #e2e8f0; transition: all 0.3s; }
+.svc-btn:hover { border-color: #38bdf8; }
+.desc-btn { padding: 10px 14px; background: rgba(129,140,248,0.08); border: 1px solid rgba(129,140,248,0.15); border-radius: 10px; cursor: pointer; font-size: 0.78rem; color: #94a3b8; transition: all 0.3s; }
+.desc-btn:hover { border-color: #818cf8; }
+.matched { background: rgba(52,211,153,0.15) !important; border-color: #34d399 !important; pointer-events: none; opacity: 0.7; }
+.selected { border-color: #38bdf8 !important; box-shadow: 0 0 0 2px rgba(56,189,248,0.2); }
+.wrong { border-color: #f87171 !important; }
+.success-msg { text-align: center; padding: 2rem; }
+@media (max-width: 500px) { .columns { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  Back to Portfolio
+</a>
+
+<div class="game-wrapper">
+  <div class="game-header">
+    <div class="game-title">☁️ Cloud Architect</div>
+    <div class="game-instructions">📋 Match each AWS service to its correct description. Click a service on the left, then click its matching description on the right.</div>
+  </div>
+  <div class="stats">
+    <span>Matched: <span id="cp-matched" style="color:#34d399;">0</span>/10</span>
+    <span>Attempts: <span id="cp-attempts" style="color:#fbbf24;">0</span></span>
+  </div>
+  <div class="columns">
+    <div>
+      <div class="col-title">Services</div>
+      <div class="items" id="cp-services"></div>
+    </div>
+    <div>
+      <div class="col-title desc">Descriptions</div>
+      <div class="items" id="cp-descs"></div>
+    </div>
+  </div>
+  <div id="cp-result"></div>
+</div>
+
+<script>
+const services = [
+  { name: 'EC2', desc: 'Virtual servers in the cloud', icon: '🖥️' },
+  { name: 'S3', desc: 'Scalable object storage', icon: '📦' },
+  { name: 'RDS', desc: 'Managed relational database', icon: '🗄️' },
+  { name: 'Lambda', desc: 'Serverless compute functions', icon: '⚡' },
+  { name: 'CloudFront', desc: 'Content delivery network (CDN)', icon: '🌐' },
+  { name: 'Route 53', desc: 'DNS and domain management', icon: '🔀' },
+  { name: 'IAM', desc: 'Identity and access management', icon: '🔐' },
+  { name: 'EKS', desc: 'Managed Kubernetes service', icon: '⎈' },
+  { name: 'SQS', desc: 'Managed message queuing service', icon: '📬' },
+  { name: 'CloudWatch', desc: 'Monitoring and observability', icon: '📊' }
+];
+
+const shuffledDescs = [...services].sort(() => Math.random() - 0.5);
+let selected = null, matched = 0, attempts = 0;
+
+const svcEl = document.getElementById('cp-services');
+const descEl = document.getElementById('cp-descs');
+
+services.forEach((s, i) => {
+  const btn = document.createElement('div');
+  btn.className = 'svc-btn';
+  btn.id = 'svc-' + i;
+  btn.textContent = s.icon + ' ' + s.name;
+  btn.onclick = () => selectSvc(i);
+  svcEl.appendChild(btn);
+});
+
+shuffledDescs.forEach((s, i) => {
+  const btn = document.createElement('div');
+  btn.className = 'desc-btn';
+  btn.id = 'desc-' + i;
+  btn.textContent = s.desc;
+  btn.onclick = () => selectDesc(i);
+  descEl.appendChild(btn);
+});
+
+function selectSvc(i) {
+  document.querySelectorAll('.svc-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('svc-' + i).classList.add('selected');
+  selected = i;
+}
+
+function selectDesc(di) {
+  if (selected === null) return;
+  attempts++;
+  document.getElementById('cp-attempts').textContent = attempts;
+  const svc = services[selected];
+  const desc = shuffledDescs[di];
+
+  if (svc.name === desc.name) {
+    matched++;
+    document.getElementById('cp-matched').textContent = matched;
+    document.getElementById('svc-' + selected).classList.add('matched');
+    document.getElementById('svc-' + selected).classList.remove('selected');
+    document.getElementById('desc-' + di).classList.add('matched');
+
+    if (matched === 10) {
+      document.getElementById('cp-result').innerHTML = '<div class="success-msg"><div style="font-size:2.5rem;margin-bottom:0.5rem;">🎉</div><div style="font-size:1.2rem;font-weight:700;color:#34d399;">All Matched!</div><div style="color:#94a3b8;margin-top:4px;">Completed in ' + attempts + ' attempts</div><button onclick="location.reload()" style="margin-top:1rem;padding:10px 24px;background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.3);border-radius:10px;color:#34d399;cursor:pointer;font-family:JetBrains Mono,monospace;">Play Again</button></div>';
+    }
+  } else {
+    const descBtn = document.getElementById('desc-' + di);
+    descBtn.classList.add('wrong');
+    setTimeout(() => descBtn.classList.remove('wrong'), 500);
+  }
+
+  selected = null;
+  document.querySelectorAll('.svc-btn').forEach(b => b.classList.remove('selected'));
+}
+</script>
+</body>
+</html>
