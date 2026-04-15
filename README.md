@@ -25,8 +25,22 @@ This is the source code for my personal portfolio website, showcasing my experie
 - **Downloadable CV** — One-click resume download
 - **Smooth Scroll Navigation** — Fixed navbar with section anchoring
 - **Dark Theme** — Modern dark UI with gradient accents
+ 
 
 ---
+
+## 🎮 DevOps Arcade
+
+The portfolio features four interactive mini-games designed to engage visitors and showcase DevOps concepts:
+
+| Game | Description | Type |
+|------|-------------|------|
+| **🖥️ Terminal Quiz** | Test your Linux & DevOps knowledge in a realistic terminal interface with hints | 10 Questions |
+| **🐳 Container Catch** | Catch falling Docker containers while avoiding bugs — use arrow keys or tap | Arcade |
+| **☁️ Cloud Architect** | Match AWS services (EC2, S3, Lambda, etc.) to their correct descriptions | Puzzle |
+| **🔄 Pipeline Runner** | Fix errors at each CI/CD stage (Build → Test → Deploy) to deploy successfully | Runner |
+
+Each game opens in its own dedicated page with instructions and a back button to return to the portfolio.
 
 ## 🛠️ Tech Stack
 
