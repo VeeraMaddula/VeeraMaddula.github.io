@@ -364,7 +364,9 @@ a.game-card { text-decoration: none; color: inherit; display: block; }
 
 /* ── Projects ── */
 .projects-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem;
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 1.5rem;
 }
 .project-card {
   background: var(--bg-card); border: 1px solid var(--border);
@@ -625,6 +627,9 @@ a.game-card { text-decoration: none; color: inherit; display: block; }
 .contact-overlay .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
 
 @media (max-width: 768px) {
+  .projects-grid { 
+    grid-template-columns: 1fr; 
+  }
   .contact-page-inner { grid-template-columns: 1fr; gap: 2rem; }
   .cpf-row { grid-template-columns: 1fr; }
   .contact-page-title { font-size: 2rem; }
