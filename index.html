@@ -4,14 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Veera Maddula | DevOps Engineer</title>
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DDWQKWELRB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-DDWQKWELRB');
-</script>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -242,7 +234,7 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
   display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
 }
 .avatar-frame {
-  width: 280px; height: 280px; border-radius: 24px; position: relative;
+  width: 280px; height: 370px; border-radius: 24px; position: relative;
   background: var(--gradient-1); padding: 3px;
   animation: float 6s ease-in-out infinite;
 }
@@ -261,50 +253,6 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
   padding: 6px 14px; border-radius: 50px; font-size: 0.8rem;
   color: var(--text-secondary); font-family: 'JetBrains Mono', monospace;
   display: flex; align-items: center; gap: 6px;
-}
-
-/* ── Games Section ── */
-.games-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;
-}
-.game-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 16px; padding: 1.75rem; cursor: pointer;
-  transition: all 0.4s; position: relative; overflow: hidden; text-align: center;
-}
-.game-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--gradient-1); opacity: 0; transition: opacity 0.3s;
-}
-.game-card:hover {
-  border-color: var(--accent); transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(56, 189, 248, 0.1);
-}
-.game-card:hover::before { opacity: 1; }
-.game-card-icon {
-  width: 64px; height: 64px; border-radius: 16px; border: 1px solid;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1rem;
-}
-.game-card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-.game-card-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; }
-.game-card-badge {
-  display: inline-block; background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.15); color: var(--accent);
-  padding: 4px 12px; border-radius: 50px; font-size: 0.7rem;
-  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;
-}
-a.game-card { text-decoration: none; color: inherit; display: block; }
-
-@media (max-width: 768px) {
-  .games-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .game-card { padding: 1.25rem; }
-  .game-card-icon { width: 50px; height: 50px; }
-  .game-card-title { font-size: 0.95rem; }
-  .game-card-desc { font-size: 0.75rem; }
-}
-@media (max-width: 480px) {
-  .games-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Skills / Floating Logos ── */
@@ -364,24 +312,52 @@ a.game-card { text-decoration: none; color: inherit; display: block; }
 
 /* ── Projects ── */
 .projects-grid {
-  display: grid; 
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 1.5rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem;
+  perspective: 1200px;
 }
 .project-card {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 20px; padding: 2rem; transition: all 0.4s;
+  border-radius: 16px; padding: 0; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative; overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
+  transform: translateY(0) rotateX(0);
 }
+.project-card:nth-child(2) { transform: translateY(12px); }
+.project-card:nth-child(3) { transform: translateY(-8px); }
+.project-card:nth-child(4) { transform: translateY(6px); }
 .project-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: var(--gradient-1); opacity: 0; transition: opacity 0.3s;
 }
 .project-card:hover {
-  border-color: var(--accent); transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(56, 189, 248, 0.08);
+  border-color: var(--accent); transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(56, 189, 248, 0.12), 0 8px 20px rgba(0,0,0,0.3);
+  z-index: 10;
 }
 .project-card:hover::before { opacity: 1; }
+
+/* Window title bar */
+.project-window-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px; background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border);
+}
+.window-dots { display: flex; gap: 6px; }
+.window-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.window-dot.red { background: #ff5f57; }
+.window-dot.yellow { background: #febc2e; }
+.window-dot.green { background: #28c840; }
+.window-tab {
+  margin-left: 12px; font-size: 0.72rem; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;
+  background: rgba(255,255,255,0.04); padding: 4px 12px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 6px;
+}
+.window-tab svg { opacity: 0.5; }
+
+.project-body { padding: 1.75rem; }
 .project-header {
   display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;
 }
@@ -627,9 +603,6 @@ a.game-card { text-decoration: none; color: inherit; display: block; }
 .contact-overlay .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
 
 @media (max-width: 768px) {
-  .projects-grid { 
-    grid-template-columns: 1fr; 
-  }
   .contact-page-inner { grid-template-columns: 1fr; gap: 2rem; }
   .cpf-row { grid-template-columns: 1fr; }
   .contact-page-title { font-size: 2rem; }
@@ -689,7 +662,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
   .about-image-side { order: -1; margin-bottom: 1.5rem; }
   .about-text p { font-size: 0.95rem; }
   .about-highlights { grid-template-columns: 1fr; }
-  .avatar-frame { width: 200px; height: 200px; }
+  .avatar-frame { width: 220px; height: 290px; }
   .info-chips { margin-top: 1rem; margin-bottom: 1rem; position: relative; z-index: 1; }
   .chip { font-size: 0.7rem; padding: 5px 10px; }
 
@@ -700,7 +673,8 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
   .skill-pill:nth-child(3n) { animation: none; }
 
   .projects-grid { grid-template-columns: 1fr; }
-  .project-card { padding: 1.5rem; }
+  .project-card { padding: 0; }
+  .project-card:nth-child(2), .project-card:nth-child(3), .project-card:nth-child(4) { transform: translateY(0); }
   .project-title { font-size: 1.1rem; }
   .project-tags { gap: 6px; }
 
@@ -808,7 +782,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
   <div class="hero-content">
     <div class="hero-badge"><span class="pulse"></span> Available for Opportunities</div>
     <h1>Hi, I'm <span class="gradient-text">Veera Maddula</span></h1>
-    <p class="hero-subtitle">DevOps and SRE and Cloud Operations Engineer crafting reliable and automated and scalable infrastructure on AWS and from Dublin.</p>
+    <p class="hero-subtitle">Completed M.Sc. in Computing — Open to Cloud Support, DevOps, Platform Engineering, AWS Cloud Engineering, IT Support, and Application Infrastructure roles from Dublin.</p>
     <div class="hero-cta">
       <a href="javascript:void(0)" class="btn btn-primary" onclick="openContactPage()">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
@@ -839,26 +813,6 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
     </div>
   </div>
 </section>
-<section class="section" id="contact">
-  <div class="section-inner reveal">
-    <div class="section-header">
-      <div class="section-label">// Let's Connect</div>
-      <h2 class="section-title">Get in <span class="gradient-text">Touch</span></h2>
-    </div>
-    <div class="contact-cta-center">
-      <p class="contact-cta-text">Interested in working together? I'd love to hear from you.<br>Click below to send me your details.</p>
-      <button class="btn btn-primary btn-lg" onclick="openContactPage()">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        Open Contact Form
-      </button>
-      <div class="contact-quick-links">
-        <a href="mailto:jagannadham.ireland.edu@gmail.com" class="quick-link">✉️ jagannadham.ireland.edu@gmail.com</a>
-        <a href="tel:+353894338657" class="quick-link">📞 +353 894 338 657</a>
-        <span class="quick-link">📍 Dublin, Ireland</span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- About -->
 <section class="section" id="about">
@@ -869,10 +823,10 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
     </div>
     <div class="about-grid">
       <div class="about-text">
-        <p><p>I'm a DevOps &SRE Engineer with 4+ years of hands-on experience building, automating, and managing CI/CD pipelines, cloud infrastructure, and containerized application deployments for large-scale, globally distributed, multi-tenant SaaS production systems on AWS. Proficient in Infrastructure as Code with Terraform, Ansible, and CloudFormation, I design and deploy production-grade, multi-tier AWS architectures with a focus on scalability, security, and cost optimization.</p>
+        <p>I'm a DevOps Engineer with 4+ years of hands-on experience building, automating, and managing CI/CD pipelines, cloud infrastructure, and containerized application deployments for large-scale, globally distributed, multi-tenant SaaS production systems on AWS.</p>
         <p>I've worked with Disney Interactive supporting e-commerce platforms serving millions of daily transactions across four global regions. Over my career, I've supported <strong>25+ digital products</strong> and multiple e-commerce websites — each built as independent microservices written in diverse programming languages including Java, Python, Go, and Node.js, requiring deep cross-stack operational expertise.</p>
-        <p><p>I've resolved <strong>300+ high-priority production tickets</strong> and executed numerous change tasks across these polyglot microservice environments, ensuring minimal downtime and rapid incident recovery. My passion lies in automation-first culture, infrastructure as code with Terraform and GitOps practices, and empowering development teams to ship faster and more reliably.</p>
-        <p>Having completed my M.Sc. in Computing at South East Technological University in Waterford, Ireland, I am actively seeking new opportunities in Cloud Support, DevOps Engineering, Platform Engineering, IT Support, AWS Cloud Engineering, and similar roles within the Application Infrastructure domain.</p>
+        <p>I've resolved <strong>300+ high-priority production tickets</strong> and executed numerous change tasks across these polyglot microservice environments, ensuring minimal downtime and rapid incident recovery. My passion lies in automation-first culture, infrastructure as code, and empowering development teams to ship faster and more reliably.</p>
+        <p>Completed M.Sc. in Computing at South East Technological University in Waterford, Ireland. Open to opportunities in Cloud Support, DevOps Engineering, Platform Engineering, AWS Cloud Engineering, IT Support, and similar roles within the Application Infrastructure domain.</p>
         <div class="about-highlights">
           <div class="highlight-card">
             <div class="highlight-icon">⚡</div>
@@ -899,64 +853,15 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
       <div class="about-image-side">
         <div class="avatar-frame">
           <div class="avatar-inner">
-            <img src="profile.jpg" alt="Veera Maddula" style="width:100%;height:100%; object-fit:contain;">
+            <img src="profile.jpg" alt="Veera Maddula" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
           </div>
         </div>
         <div class="info-chips">
-          <span class="chip">📍 Dublin, Ireland</span>
-          <span class="chip">🎓 M.Sc. Computing</span>
+          <span class="chip">📍 Waterford, Ireland</span>
+          <span class="chip">🎓 M.Sc. Computing (Completed)</span>
           <span class="chip">☁️ AWS Certified</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Interactive Games -->
-<section class="section" id="games">
-  <div class="section-inner reveal">
-    <div class="section-header">
-      <div class="section-label">// Have Some Fun</div>
-      <h2 class="section-title">DevOps <span class="gradient-text">Arcade</span></h2>
-      <p style="color:var(--text-secondary);margin-top:0.75rem;font-size:0.95rem;">Take a quick break and test your DevOps skills with these mini-games!</p>
-    </div>
-    <div class="games-grid">
-      <!-- Terminal Quiz -->
-      <a href="terminal-quiz.html" class="game-card">
-        <div class="game-card-icon" style="background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.2);color:#34d399;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 10l4 2-4 2M12 16h4"/></svg>
-        </div>
-        <h3 class="game-card-title">Terminal Quiz</h3>
-        <p class="game-card-desc">Test your Linux & DevOps knowledge in a realistic terminal interface</p>
-        <div class="game-card-badge">10 Questions</div>
-      </a>
-      <!-- Docker Catch -->
-      <a href="container-catch.html" class="game-card">
-        <div class="game-card-icon" style="background:rgba(56,189,248,0.1);border-color:rgba(56,189,248,0.2);color:#38bdf8;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="10" width="4" height="4" rx="0.5"/><rect x="8" y="10" width="4" height="4" rx="0.5"/><rect x="13" y="10" width="4" height="4" rx="0.5"/><rect x="8" y="5" width="4" height="4" rx="0.5"/><path d="M1 16c0 0 3 6 11 6s11-6 11-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-        </div>
-        <h3 class="game-card-title">Container Catch</h3>
-        <p class="game-card-desc">Catch falling Docker containers while avoiding bugs and errors</p>
-        <div class="game-card-badge">Arcade</div>
-      </a>
-      <!-- Cloud Puzzle -->
-      <a href="cloud-architect.html" class="game-card">
-        <div class="game-card-icon" style="background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.2);color:#fbbf24;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 19a5 5 0 010-10 7 7 0 0114 1 4 4 0 010 8H6z"/></svg>
-        </div>
-        <h3 class="game-card-title">Cloud Architect</h3>
-        <p class="game-card-desc">Match AWS services to their correct descriptions and use cases</p>
-        <div class="game-card-badge">Puzzle</div>
-      </a>
-      <!-- Pipeline Runner -->
-      <a href="pipeline-runner.html" class="game-card">
-        <div class="game-card-icon" style="background:rgba(129,140,248,0.1);border-color:rgba(129,140,248,0.2);color:#818cf8;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 12h3M14 12h3"/><path d="M12 8V6M12 18v-2"/></svg>
-        </div>
-        <h3 class="game-card-title">Pipeline Runner</h3>
-        <p class="game-card-desc">Guide your code through Build → Test → Deploy stages</p>
-        <div class="game-card-badge">Runner</div>
-      </a>
     </div>
   </div>
 </section>
@@ -1066,66 +971,175 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
       <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
     </div>
     <div class="projects-grid">
+
+      <!-- Project 1: OpenTelemetry -->
       <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+        <div class="project-window-bar">
+          <div class="window-dots">
+            <span class="window-dot red"></span>
+            <span class="window-dot yellow"></span>
+            <span class="window-dot green"></span>
           </div>
-          <a href="https://github.com/VeeraMaddula/Opentelemetary-project" target="_blank" class="project-github-link" aria-label="View on GitHub">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          <div class="window-tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+            observability-shop
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+            </div>
+            <a href="https://github.com/VeeraMaddula/Opentelemetary-project" target="_blank" class="project-github-link" aria-label="View on GitHub">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+          <h3 class="project-title">OpenTelemetry Astronomy Shop</h3>
+          <p class="project-desc">Microservice-based distributed system deployed on AWS EKS demonstrating OpenTelemetry instrumentation with Grafana, Prometheus, and Jaeger for full-stack observability.</p>
+          <div class="project-goals">
+            <div class="project-goal-item">📡 Distributed tracing & observability</div>
+            <div class="project-goal-item">🧩 Microservice architecture on EKS</div>
+            <div class="project-goal-item">🔌 Grafana, Prometheus & Jaeger dashboards</div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">OpenTelemetry</span>
+            <span class="project-tag">Kubernetes</span>
+            <span class="project-tag">AWS EKS</span>
+            <span class="project-tag">Grafana</span>
+            <span class="project-tag">Docker</span>
+          </div>
+          <a href="https://github.com/VeeraMaddula/Opentelemetary-project" target="_blank" class="project-link">
+            View on GitHub
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </a>
         </div>
-        <h3 class="project-title">OpenTelemetry Astronomy Shop</h3>
-        <p class="project-desc">A microservice-based distributed system demonstrating OpenTelemetry instrumentation and observability in a near real-world environment. Provides a realistic example for vendors, tooling authors, and contributors to extend, test, and demonstrate their OpenTelemetry integrations across the full API, SDK, and component ecosystem.</p>
-        <div class="project-goals">
-          <div class="project-goal-item">📡 Distributed tracing & observability</div>
-          <div class="project-goal-item">🧩 Microservice architecture demo</div>
-          <div class="project-goal-item">🔌 Vendor-extensible integration base</div>
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">OpenTelemetry</span>
-          <span class="project-tag">Microservices</span>
-          <span class="project-tag">Distributed Systems</span>
-          <span class="project-tag">Observability</span>
-          <span class="project-tag">Docker</span>
-          <span class="project-tag">Kubernetes</span>
-        </div>
-        <a href="https://github.com/VeeraMaddula/Opentelemetary-project" target="_blank" class="project-link">
-          View on GitHub
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-        </a>
       </div>
-<!-- Terraform AWS Infrastructure Project -->
+
+      <!-- Project 2: Terraform AWS Infrastructure -->
       <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        <div class="project-window-bar">
+          <div class="window-dots">
+            <span class="window-dot red"></span>
+            <span class="window-dot yellow"></span>
+            <span class="window-dot green"></span>
           </div>
-          <a href="https://github.com/VeeraMaddula/terraform-aws-infrastructure" target="_blank" class="project-github-link" aria-label="View on GitHub">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          <div class="window-tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            terraform-aws
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon" style="background:rgba(129,140,248,0.1);border-color:rgba(129,140,248,0.15);color:var(--accent2);">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <a href="https://github.com/VeeraMaddula/terraform-aws-infrastructure" target="_blank" class="project-github-link" aria-label="View on GitHub">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+          <h3 class="project-title">AWS Infrastructure as Code</h3>
+          <p class="project-desc">Production-ready, multi-tier AWS infrastructure using modular Terraform. Features VPC across multiple AZs, auto-scaling, encrypted RDS, and comprehensive observability with remote state management.</p>
+          <div class="project-goals">
+            <div class="project-goal-item">🏗️ Multi-AZ high availability architecture</div>
+            <div class="project-goal-item">📦 Modular & reusable Terraform code</div>
+            <div class="project-goal-item">💰 Cost-optimized deployment ($70-110/mo)</div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Terraform</span>
+            <span class="project-tag">AWS</span>
+            <span class="project-tag">VPC</span>
+            <span class="project-tag">EC2</span>
+            <span class="project-tag">RDS</span>
+            <span class="project-tag">IaC</span>
+          </div>
+          <a href="https://github.com/VeeraMaddula/terraform-aws-infrastructure" target="_blank" class="project-link">
+            View on GitHub
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </a>
         </div>
-        <h3 class="project-title">AWS Infrastructure as Code with Terraform</h3>
-        <p class="project-desc">Production-ready, multi-tier AWS infrastructure deployed using modular Terraform architecture. Features VPC design across multiple availability zones, auto-scaling compute with load balancing, encrypted RDS database, and comprehensive observability. Demonstrates Infrastructure as Code best practices with remote state management and cost optimization strategies.</p>
-        <div class="project-goals">
-          <div class="project-goal-item">🏗️ Multi-AZ high availability architecture</div>
-          <div class="project-goal-item">📦 Modular & reusable Terraform code</div>
-          <div class="project-goal-item">💰 Cost-optimized deployment ($70-110/mo)</div>
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">Terraform</span>
-          <span class="project-tag">AWS</span>
-          <span class="project-tag">VPC</span>
-          <span class="project-tag">EC2</span>
-          <span class="project-tag">RDS</span>
-          <span class="project-tag">IaC</span>
-          <span class="project-tag">CloudFormation</span>
-        </div>
-        <a href="https://github.com/VeeraMaddula/terraform-aws-infrastructure" target="_blank" class="project-link">
-          View on GitHub
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-        </a>
       </div>
+
+      <!-- Project 3: Jenkins CI/CD Pipeline -->
+      <div class="project-card">
+        <div class="project-window-bar">
+          <div class="window-dots">
+            <span class="window-dot red"></span>
+            <span class="window-dot yellow"></span>
+            <span class="window-dot green"></span>
+          </div>
+          <div class="window-tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V8M5 12H2a10 10 0 0020 0h-3"/></svg>
+            jenkins-cicd
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon" style="background:rgba(248,113,113,0.1);border-color:rgba(248,113,113,0.15);color:#f87171;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V8M5 12H2a10 10 0 0020 0h-3M8 12l4-4 4 4"/></svg>
+            </div>
+          </div>
+          <h3 class="project-title">Jenkins CI/CD Pipeline</h3>
+          <p class="project-desc">End-to-end CI/CD pipeline with Jenkins automating build, test, and deployment stages for containerized applications. Demonstrates pipeline-as-code with Jenkinsfile, Docker integration, and automated testing.</p>
+          <div class="project-goals">
+            <div class="project-goal-item">⚙️ Pipeline-as-Code with Jenkinsfile</div>
+            <div class="project-goal-item">🐳 Docker build & push automation</div>
+            <div class="project-goal-item">✅ Automated testing & deployment gates</div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Jenkins</span>
+            <span class="project-tag">CI/CD</span>
+            <span class="project-tag">Docker</span>
+            <span class="project-tag">Pipeline</span>
+            <span class="project-tag">Automation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4: ReviewApp -->
+      <div class="project-card">
+        <div class="project-window-bar">
+          <div class="window-dots">
+            <span class="window-dot red"></span>
+            <span class="window-dot yellow"></span>
+            <span class="window-dot green"></span>
+          </div>
+          <div class="window-tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            review-app
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon" style="background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.15);color:#34d399;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            </div>
+            <a href="https://github.com/VeeraMaddula/Reviewapp" target="_blank" class="project-github-link" aria-label="View on GitHub">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+          <h3 class="project-title">ReviewApp — Full-Stack Web App</h3>
+          <p class="project-desc">A full-stack review application built with TypeScript and modern frontend technologies. Enables users to browse, submit, and manage reviews with a clean, responsive interface.</p>
+          <div class="project-goals">
+            <div class="project-goal-item">💻 TypeScript frontend with modern UI</div>
+            <div class="project-goal-item">🔄 RESTful API integration</div>
+            <div class="project-goal-item">📱 Responsive design across devices</div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">TypeScript</span>
+            <span class="project-tag">React</span>
+            <span class="project-tag">Full-Stack</span>
+            <span class="project-tag">REST API</span>
+          </div>
+          <a href="https://github.com/VeeraMaddula/Reviewapp" target="_blank" class="project-link">
+            View on GitHub
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- Experience -->
 <section class="section" id="experience">
@@ -1218,7 +1232,26 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
 </section>
 
 <!-- Contact Section (anchor for nav) -->
-
+<section class="section" id="contact">
+  <div class="section-inner reveal">
+    <div class="section-header">
+      <div class="section-label">// Let's Connect</div>
+      <h2 class="section-title">Get in <span class="gradient-text">Touch</span></h2>
+    </div>
+    <div class="contact-cta-center">
+      <p class="contact-cta-text">Interested in working together? I'd love to hear from you.<br>Click below to send me your details.</p>
+      <button class="btn btn-primary btn-lg" onclick="openContactPage()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Open Contact Form
+      </button>
+      <div class="contact-quick-links">
+        <a href="mailto:jagannadham.ireland.edu@gmail.com" class="quick-link">✉️ jagannadham.ireland.edu@gmail.com</a>
+        <a href="tel:+353894338657" class="quick-link">📞 +353 894 338 657</a>
+        <span class="quick-link">📍 Waterford, Ireland</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Full-Page Contact Overlay -->
 <div class="contact-overlay" id="contactOverlay">
@@ -1242,7 +1275,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
           </div>
           <div class="contact-page-info-item">
             <span class="cpi-icon">📍</span>
-            <span>Dublin, Ireland</span>
+            <span>Waterford, Ireland</span>
           </div>
         </div>
       </div>
