@@ -8,7 +8,7 @@
 
 ## 👋 About
 
-This is the source code for my personal portfolio website, showcasing my experience as a **DevOps Engineer, SRE, and Cloud Operations Specialist** with 4+ years of hands-on experience in building, automating, and managing cloud infrastructure on AWS.
+This is the source code for my personal portfolio website, showcasing my experience as a **DevOps Engineer, SRE, and Cloud Operations Specialist** with 5+ years of hands-on experience in building, automating, and managing cloud infrastructure on AWS.
 
 🔗 **Live Site:** [https://VeeraMaddula.github.io](https://VeeraMaddula.github.io)
 
