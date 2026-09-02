@@ -46,13 +46,17 @@ Each game opens in its own dedicated page with instructions and a back button to
 
 | Category | Technologies |
 |----------|-------------|
-| **Cloud & Infrastructure** | AWS (EC2, ECS, EKS, S3, RDS, Route 53, CloudFront, IAM, CloudFormation) |
-| **Containers & Orchestration** | Docker, Kubernetes (EKS), Helm, Amazon ECS |
-| **CI/CD & IaC** | Jenkins, Terraform, Ansible, Git, Flux CD |
-| **Monitoring & Observability** | Datadog, Grafana, Splunk, ELK Stack, Prometheus, PagerDuty, AppDynamics, Pingdom, Zenoss, Stackdriver |
+| **Cloud & Infrastructure** | AWS (EC2, ECS, EKS, S3, RDS, Route 53, CloudFront, ALB, ASG, IAM, VPC, CloudWatch), Azure, GCP |
+| **Containers & Orchestration** | Docker, Kubernetes (EKS, AKS), Helm, Amazon ECS, Ingress controllers, CNI networking |
+| **IaC & Config Management** | Terraform, Ansible, CloudFormation, AWS CDK, Bicep, Puppet |
+| **CI/CD & GitOps** | Jenkins, GitHub Actions, Azure DevOps, Argo CD, Git, Maven, GitOps workflows |
+| **Observability** | Prometheus, Grafana, OpenTelemetry, Datadog, CloudWatch, Splunk, EFK/ELK, PagerDuty, synthetic monitoring |
+| **Reliability Practices** | SLIs/SLOs, error budgets, incident management, blameless post-mortems, on-call, MTTR reduction, capacity planning, toil reduction |
+| **AIOps** | AI-assisted operations, anomaly detection, automated remediation |
+| **Event Streaming & Databases** | Apache Kafka, AWS SQS, event-driven architectures, Aurora Postgres, Oracle RDS, MySQL |
+| **Systems, Networking & Security** | Linux, TCP/IP, DNS, load balancing, TLS, security groups, IAM least-privilege, hardening baselines, vulnerability remediation |
 | **ITSM & Project Management** | ServiceNow, JIRA |
-| **Languages & Scripting** | Python, Bash, Go, Linux |
-| **Messaging & Databases** | Kafka, AWS SQS, Aurora Postgres, Oracle RDS, MySQL |
+| **Languages & Scripting** | Python, Bash, Go |
 
 ---
 
