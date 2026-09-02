@@ -1195,21 +1195,47 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
       <h2 class="section-title">Professional <span class="gradient-text">Experience</span></h2>
     </div>
     <div class="timeline">
-      <!-- Job 2 -->
+      <!-- Job 3: Freelance -->
       <div class="timeline-item">
         <div class="timeline-dot"></div>
-        <div class="timeline-date">Oct 2023 – Jun 2024</div>
+        <div class="timeline-date">Feb 2026 – Present</div>
         <div class="timeline-card">
-          <div class="timeline-role">DevOps / Technical Operations Engineer</div>
-          <div class="timeline-company">TechWing — Rajahmundry, India</div>
+          <div class="timeline-role">Freelance Senior Systems Engineer</div>
+          <div class="timeline-company">Booking &amp; Staff Operations Platform — Dublin, Ireland</div>
+          <div class="timeline-client">Client: Garcijo Investments Ltd</div>
           <div class="timeline-desc">
-            <p>Managed cloud infrastructure and operational processes for EdTech platforms hosted on AWS, supporting multi-tenant SaaS environments with a focus on reliability and automation.</p>
+            <p>Designed and delivered a full-stack reservation and staff-operations platform for a hospitality business, owning the architecture, data model, role hierarchy, security posture, and third-party integrations end to end.</p>
             <ul>
-              <li>Managed AWS cloud infrastructure and Linux servers ensuring high availability of production systems</li>
-              <li>Supported CI/CD-based deployments across dev, staging, and production using Jenkins, Git, and GitOps workflows</li>
-              <li>Implemented monitoring and alerting using CloudWatch, Datadog, Grafana, and ELK</li>
-              <li>Developed runbooks, operational documentation, and training materials for incident response</li>
-              <li>Performed Linux administration including patching, log analysis, and security hardening</li>
+              <li>Defined system architecture and service boundaries, then directed AI-assisted implementation across front end and back end</li>
+              <li>Built a conflict-aware booking engine with best-fit table assignment, double-booking prevention, and manager approval workflow</li>
+              <li>Implemented role-based access control across 7+ staff roles with granular per-feature permissions</li>
+              <li>Delivered a staff kiosk system (camera clock-in/out, PIN auth with brute-force lockout, duty-window scheduling) and two-way Google Calendar sync</li>
+              <li>Led a full security review — CSRF protection, rate limiting, session hardening, and dependency CVE remediation</li>
+              <li>Evaluated and integrated third-party providers (Resend for email, Sendmode for SMS) on cost and feature trade-offs</li>
+            </ul>
+            <div class="achievement-badge">
+              🏆 Refactored a 1,400-line monolithic data layer into 15 domain modules with zero regressions, verified by automated public-API diffing
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Job 2: NetEnrich Resolution Intelligence -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Jul 2023 – Jul 2024</div>
+        <div class="timeline-card">
+          <div class="timeline-role">Site Reliability Engineer</div>
+          <div class="timeline-company">NetEnrich Technologies — Hyderabad, India</div>
+          <div class="timeline-client">Resolution Intelligence Cloud (AIOps / SecOps Platform)</div>
+          <div class="timeline-desc">
+            <p>Drove reliability, scalability, and observability for a multi-tenant AIOps/SecOps platform on AWS, built from microservices and event-driven pipelines serving enterprise customers.</p>
+            <ul>
+              <li>Operated and improved reliability of the platform underpinning AI-assisted anomaly detection and automated incident-resolution workflows</li>
+              <li>Built Terraform modules and Ansible playbooks provisioning AWS infrastructure (EKS, EC2, S3, RDS, IAM, CloudWatch) under GitOps</li>
+              <li>Instrumented services with EFK/ELK and APM; defined SLIs and alerting thresholds protecting customer-facing SLOs</li>
+              <li>Developed Python self-healing automation, Kafka consumer-lag monitors, and scheduled pipeline health checks</li>
+              <li>Tuned Kafka and AWS SQS (partitions, consumer groups, retry logic) to sustain throughput during load spikes and backlog recovery</li>
+              <li>Partnered on vulnerability management and secure configuration of container images, Kubernetes workloads, and cloud networking</li>
             </ul>
           </div>
         </div>
@@ -1219,7 +1245,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
         <div class="timeline-dot"></div>
         <div class="timeline-date">Jan 2020 – Sep 2023</div>
         <div class="timeline-card">
-          <div class="timeline-role">DevOps Engineer / Cloud Operations (SRE)</div>
+          <div class="timeline-role">Site Reliability Engineer / Cloud Operations</div>
           <div class="timeline-company">NetEnrich Technologies — Hyderabad, India</div>
           <div class="timeline-client">Client: Disney Interactive</div>
           <div class="timeline-desc">
@@ -1232,6 +1258,8 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
               <li>Led incident troubleshooting in on-call rotations with PagerDuty, driving blameless postmortems</li>
               <li>Performed pre-scale capacity checks for major launch events (Black Friday, holiday sales)</li>
               <li>Implemented Kafka and AWS SQS event-driven messaging for inter-service communication</li>
+              <li>Defined SLIs, SLOs, and error budgets for customer-facing services, driving error-budget-based release decisions</li>
+              <li>Led response to 300+ P1 incidents across 30+ production services as part of the Rescue Rangers on-call team</li>
             </ul>
             <div class="achievement-badge">
               🏆 Reduced average incident resolution time by ~25% through workflow automation and proactive observability
