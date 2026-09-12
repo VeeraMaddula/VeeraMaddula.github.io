@@ -134,19 +134,19 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
 /* ── Hero Section ── */
 .hero {
   min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  position: relative; z-index: 1; padding: 6rem 2rem 4rem;
+  position: relative; z-index: 1; padding: 6rem 1.75rem 4rem;
 }
-.hero-content { max-width: 1280px; width: 100%; text-align: left; }
+.hero-content { max-width: 1440px; width: 100%; text-align: left; }
 .hero-grid {
-  display: grid; grid-template-columns: 1.15fr 1fr; gap: 4rem;
+  display: grid; grid-template-columns: 1.18fr 1fr; gap: 5rem;
   align-items: stretch;
 }
 .hero-left { display: flex; flex-direction: column; justify-content: center; }
 .hero-right { display: flex; }
 .hero-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;
   color: var(--accent); letter-spacing: 3px; text-transform: uppercase;
-  margin-bottom: 1rem; animation: fadeInUp 0.6s ease;
+  margin-bottom: 1.1rem; animation: fadeInUp 0.6s ease;
 }
 .hero-badge {
   display: inline-flex; align-self: flex-start; align-items: center; gap: 8px;
@@ -164,8 +164,8 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
   50% { opacity: 0.5; transform: scale(1.5); }
 }
 .hero h1 {
-  font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -2px;
-  line-height: 1.1; margin-bottom: 1rem;
+  font-size: clamp(2.4rem, 5.4vw, 4.9rem); font-weight: 800; letter-spacing: -2.5px;
+  line-height: 1.08; margin-bottom: 1.1rem;
   animation: fadeInUp 0.6s ease 0.1s both;
 }
 .hero h1 .gradient-text {
@@ -174,24 +174,24 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
 .hero-role {
   display: flex; align-items: center;
   font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(1.1rem, 1.9vw, 1.65rem); font-weight: 600;
+  font-size: clamp(1.1rem, 2vw, 1.85rem); font-weight: 600;
   color: var(--accent); letter-spacing: -0.5px;
-  min-height: 2.4rem; margin-bottom: 1.25rem;
+  min-height: 2.7rem; margin-bottom: 1.4rem;
   animation: fadeInUp 0.6s ease 0.15s both;
 }
 .hero-role-arrow { color: var(--accent3); font-weight: 700; margin-right: 12px; }
 .hero-role-cursor { color: var(--accent); margin-left: 3px; animation: blink 0.8s infinite; }
 .hero-subtitle {
-  font-size: 1rem; color: var(--text-secondary); max-width: 600px; margin: 0 0 2rem;
-  font-weight: 300; line-height: 1.75; animation: fadeInUp 0.6s ease 0.2s both;
+  font-size: 1.1rem; color: var(--text-secondary); max-width: 680px; margin: 0 0 2.25rem;
+  font-weight: 300; line-height: 1.8; animation: fadeInUp 0.6s ease 0.2s both;
 }
 .hero-cta {
   display: flex; gap: 1rem; justify-content: flex-start; flex-wrap: wrap;
   animation: fadeInUp 0.6s ease 0.3s both;
 }
 .btn {
-  padding: 15px 34px; border-radius: 12px; font-family: 'Outfit', sans-serif;
-  font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s;
+  padding: 16px 38px; border-radius: 12px; font-family: 'Outfit', sans-serif;
+  font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: all 0.3s;
   text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
 }
 .btn-primary {
@@ -241,7 +241,7 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
 }
 .tw-body {
   flex: 1; padding: 1.75rem 1.6rem; font-family: 'JetBrains Mono', monospace;
-  font-size: 0.95rem; line-height: 2.05;
+  font-size: 1rem; line-height: 2.05;
 }
 .tw-line { display: flex; align-items: center; gap: 9px; }
 .tw-prompt { color: var(--accent3); font-weight: 700; }
@@ -892,6 +892,10 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
             <div class="tw-output tw-green">~6 years · 30+ services · 300+ P1s resolved</div>
             <div class="tw-line"><span class="tw-prompt">$</span><span class="tw-cmd">kubectl get impact</span></div>
             <div class="tw-output tw-green">MTTR reduced ~25% · 4 global regions</div>
+            <div class="tw-line"><span class="tw-prompt">$</span><span class="tw-cmd">terraform providers</span></div>
+            <div class="tw-output">aws · azurerm · google · kubernetes · helm</div>
+            <div class="tw-line"><span class="tw-prompt">$</span><span class="tw-cmd">aiops status</span></div>
+            <div class="tw-output tw-green">anomaly detection · auto-remediation · active</div>
             <div class="tw-line"><span class="tw-prompt">$</span><span class="tw-cursor">▮</span></div>
           </div>
         </div>
