@@ -383,20 +383,39 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
 .skill-pill:hover { animation: none !important; }
 
 /* ── Projects ── */
-.projects-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem;
-  perspective: 1200px;
+/* ── Projects Carousel ── */
+#projects .section-inner { max-width: 100%; }
+.projects-carousel {
+  position: relative; overflow: hidden; padding: 1.25rem 0 2rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
 }
+.projects-track {
+  display: flex; align-items: stretch; width: max-content;
+  animation: projectsRoll 80s linear infinite;
+}
+@keyframes projectsRoll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.projects-carousel:hover .projects-track,
+.projects-carousel:focus-within .projects-track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-track { animation: none; }
+  .projects-carousel { overflow-x: auto; scroll-snap-type: x mandatory; }
+  .project-card { scroll-snap-align: center; }
+}
+
 .project-card {
+  flex: 0 0 380px; margin-right: 1.5rem;
+  display: flex; flex-direction: column;
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: 16px; padding: 0; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative; overflow: hidden;
   box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
-  transform: translateY(0) rotateX(0);
+  transform: translateY(0);
 }
-.project-card:nth-child(2) { transform: translateY(12px); }
-.project-card:nth-child(3) { transform: translateY(-8px); }
-.project-card:nth-child(4) { transform: translateY(6px); }
 .project-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: var(--gradient-1); opacity: 0; transition: opacity 0.3s;
@@ -429,7 +448,7 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
 }
 .window-tab svg { opacity: 0.5; }
 
-.project-body { padding: 1.75rem; }
+.project-body { padding: 1.75rem; display: flex; flex-direction: column; flex: 1; }
 .project-header {
   display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;
 }
@@ -467,8 +486,8 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
   font-weight: 500; letter-spacing: 0.5px;
 }
 .project-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  color: var(--accent); text-decoration: none; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 6px; align-self: flex-start;
+  margin-top: auto; color: var(--accent); text-decoration: none; font-weight: 600;
   font-size: 0.9rem; transition: all 0.3s;
 }
 .project-link:hover { gap: 10px; }
@@ -750,9 +769,9 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
   .skill-pill:nth-child(even),
   .skill-pill:nth-child(3n) { animation: none; }
 
-  .projects-grid { grid-template-columns: 1fr; }
-  .project-card { padding: 0; }
-  .project-card:nth-child(2), .project-card:nth-child(3), .project-card:nth-child(4) { transform: translateY(0); }
+  .projects-carousel { padding: 1rem 0 1.5rem; }
+  .project-card { flex: 0 0 84vw; margin-right: 1rem; }
+  .project-body { padding: 1.35rem; }
   .project-title { font-size: 1.1rem; }
   .project-tags { gap: 6px; }
 
@@ -1172,7 +1191,8 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
       <div class="section-label">// My Work</div>
       <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
     </div>
-    <div class="projects-grid">
+    <div class="projects-carousel">
+      <div class="projects-track" id="projectsTrack">
 
       <!-- Project 1: The Holy Cross Booking App -->
       <div class="project-card">
@@ -1385,6 +1405,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
         </div>
       </div>
 
+      </div>
     </div>
   </div>
 </section>
@@ -1708,11 +1729,23 @@ document.addEventListener('mousemove', (e) => {
   });
 });
 
+// ── Projects Carousel: clone the cards so the roll loops seamlessly ──
+(function() {
+  const track = document.getElementById('projectsTrack');
+  if (!track) return;
+  const cards = Array.from(track.children);
+  cards.forEach(card => {
+    const copy = card.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    copy.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '-1'));
+    track.appendChild(copy);
+  });
+})();
+
 // ── Terminal Role Typing Animation ──
 const termRoles = [
   'Senior Site Reliability Engineer',
   'Site Reliability Engineer',
-  'DevSecOps Engineer',
   'Senior DevOps Engineer',
   'AWS Cloud Engineer',
   'Azure Cloud Engineer',
