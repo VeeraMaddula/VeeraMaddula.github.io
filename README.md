@@ -92,7 +92,7 @@ No build tools, frameworks, or dependencies required — it's a single HTML file
 
 - **Email:** jagannadham.ireland.edu@gmail.com
 - **Phone:** +353 894 338 657
-- **Location:** Waterford, Ireland
+- **Location:** Dublin, Ireland
 - **LinkedIn:** [linkedin.com/in/veeramaddula](https://www.linkedin.com/in/veeramaddula)
 - **GitHub:** [github.com/VeeraMaddula](https://github.com/VeeraMaddula)
 
