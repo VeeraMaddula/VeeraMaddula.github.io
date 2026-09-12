@@ -284,8 +284,12 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
 }
 
 /* ── About ── */
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-.about-text p { color: var(--text-secondary); margin-bottom: 1rem; font-size: 1.05rem; }
+#about .section-inner { max-width: 1280px; }
+.about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3.5rem; align-items: center; }
+.about-text p {
+  color: var(--text-secondary); margin-bottom: 1.35rem;
+  font-size: 1.18rem; line-height: 1.85;
+}
 .about-highlights {
   display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;
 }
@@ -295,14 +299,14 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
 }
 .highlight-card:hover { border-color: var(--accent); transform: translateY(-2px); }
 .highlight-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
-.highlight-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; }
-.highlight-desc { font-size: 0.8rem; color: var(--text-muted); }
+.highlight-title { font-weight: 600; font-size: 1.02rem; margin-bottom: 0.25rem; }
+.highlight-desc { font-size: 0.85rem; color: var(--text-muted); }
 
 .about-image-side {
   display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
 }
 .avatar-frame {
-  width: 280px; height: 370px; border-radius: 24px; position: relative;
+  width: 100%; max-width: 400px; aspect-ratio: 3 / 4; border-radius: 24px; position: relative;
   background: var(--gradient-1); padding: 3px;
   animation: float 6s ease-in-out infinite;
 }
@@ -318,7 +322,7 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
 .info-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
 .chip {
   background: var(--bg-card); border: 1px solid var(--border);
-  padding: 6px 14px; border-radius: 50px; font-size: 0.8rem;
+  padding: 7px 15px; border-radius: 50px; font-size: 0.85rem;
   color: var(--text-secondary); font-family: 'JetBrains Mono', monospace;
   display: flex; align-items: center; gap: 6px;
 }
@@ -734,9 +738,9 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
 
   .about-grid { grid-template-columns: 1fr; gap: 2rem; }
   .about-image-side { order: -1; margin-bottom: 1.5rem; }
-  .about-text p { font-size: 0.95rem; }
+  .about-text p { font-size: 1rem; line-height: 1.8; }
   .about-highlights { grid-template-columns: 1fr; }
-  .avatar-frame { width: 220px; height: 290px; }
+  .avatar-frame { max-width: 280px; }
   .info-chips { margin-top: 1rem; margin-bottom: 1rem; position: relative; z-index: 1; }
   .chip { font-size: 0.7rem; padding: 5px 10px; }
 
@@ -931,10 +935,8 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
     </div>
     <div class="about-grid">
       <div class="about-text">
-        <p>I'm a <strong>Senior DevOps and Senior Site Reliability Engineer</strong> with <strong>6+ years</strong> of experience building, automating, and operating cloud platforms at scale across AWS, Azure, and GCP. I own the full delivery path: CI/CD pipelines in Jenkins, GitHub Actions, Azure DevOps, and Argo CD, infrastructure as code in Terraform and Ansible, and container platforms on Kubernetes, EKS, and ECS.</p>
-        <p>At Disney Interactive I ran the shared AWS infrastructure behind ecommerce platforms serving millions of daily transactions across four global regions. I supported <strong>30+ digital products</strong>, each an independent microservice written in Java, Python, Go, or Node.js, so operating comfortably across very different runtimes, build systems, and failure modes became second nature.</p>
-        <p>I've led response to <strong>300+ priority one production incidents</strong> and cut mean time to recovery by roughly <strong>25%</strong> through automation and proactive monitoring. Reliability is the core of how I work: defining SLIs and SLOs, owning error budgets, running blameless postmortems, and building observability in Datadog, Grafana, Prometheus, Splunk, and the ELK stack. Alongside that I've tuned Kafka and SQS pipelines, written Python self healing automation, and driven vulnerability remediation across container images and cloud networking.</p>
-        <p>More recently I've worked in AIOps, applying anomaly detection and automated remediation to reduce toil and shorten incident response in hybrid environments. I hold the AWS Certified Solutions Architect credential and completed an M.Sc. in Computing at South East Technological University in Dublin. I'm open to Senior DevOps, Site Reliability, Platform, and Cloud Engineering roles across Ireland.</p>
+        <p>I'm a <strong>Senior DevOps and Senior Site Reliability Engineer</strong> with <strong>6+ years</strong> of experience building, automating, and operating cloud platforms at scale across AWS, Azure, and GCP. I own the full delivery path: CI/CD pipelines in Jenkins, GitHub Actions, Azure DevOps, and Argo CD, infrastructure as code in Terraform and Ansible, and container platforms on Kubernetes, EKS, and ECS. At Disney Interactive I ran the shared AWS infrastructure behind ecommerce platforms serving millions of daily transactions across four global regions, supporting <strong>30+ digital products</strong>, each an independent microservice written in Java, Python, Go, or Node.js, so operating comfortably across very different runtimes, build systems, and failure modes became second nature.</p>
+        <p>I've led response to <strong>300+ priority one production incidents</strong> and cut mean time to recovery by roughly <strong>25%</strong> through automation and proactive monitoring. Reliability is the core of how I work: defining SLIs and SLOs, owning error budgets, running blameless postmortems, and building observability in Datadog, Grafana, Prometheus, Splunk, and the ELK stack. Alongside that I've tuned Kafka and SQS pipelines, written Python self healing automation, and driven vulnerability remediation across container images and cloud networking. More recently I've worked in AIOps, applying anomaly detection and automated remediation to reduce toil and shorten incident response in hybrid environments. I hold the AWS Certified Solutions Architect credential and completed an M.Sc. in Computing at South East Technological University in Dublin, and I'm open to Senior DevOps, Site Reliability, Platform, and Cloud Engineering roles across Ireland.</p>
         <div class="about-highlights">
           <div class="highlight-card">
             <div class="highlight-icon">⚡</div>
