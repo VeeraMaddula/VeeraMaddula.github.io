@@ -127,6 +127,25 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
 }
 .nav-links a:hover { color: var(--accent); }
 .nav-links a:hover::after { width: 100%; }
+.nav-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+  color: var(--accent); margin-right: 6px; opacity: 0.7;
+}
+
+.nav-actions { display: flex; align-items: center; gap: 1rem; }
+.nav-cv {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px; border-radius: 10px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.08);
+  color: var(--accent); text-decoration: none;
+  font-size: 0.82rem; font-weight: 600; letter-spacing: 0.5px;
+  text-transform: uppercase; transition: all 0.3s;
+}
+.nav-cv:hover {
+  background: rgba(56, 189, 248, 0.16); border-color: var(--accent);
+  transform: translateY(-1px);
+}
 
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 5px; }
 .hamburger span { width: 25px; height: 2px; background: var(--text-primary); transition: 0.3s; }
@@ -239,6 +258,13 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
   margin-left: auto; color: var(--text-muted); font-size: 0.78rem;
   font-family: 'JetBrains Mono', monospace;
 }
+.tw-clock {
+  color: var(--accent3); font-size: 0.78rem;
+  font-family: 'JetBrains Mono', monospace;
+  padding-left: 12px; margin-left: 12px;
+  border-left: 1px solid rgba(148, 163, 184, 0.18);
+  font-variant-numeric: tabular-nums;
+}
 .tw-body {
   flex: 1; padding: 1.75rem 1.6rem; font-family: 'JetBrains Mono', monospace;
   font-size: 1rem; line-height: 2.05;
@@ -301,6 +327,12 @@ nav.scrolled { background: rgba(10, 14, 23, 0.95); box-shadow: 0 4px 30px rgba(0
 .highlight-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
 .highlight-title { font-weight: 600; font-size: 1.02rem; margin-bottom: 0.25rem; }
 .highlight-desc { font-size: 0.85rem; color: var(--text-muted); }
+.highlight-stat {
+  margin-top: 0.75rem; padding-top: 0.65rem;
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+  color: var(--accent3); letter-spacing: 0.3px;
+}
 
 .about-image-side {
   display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
@@ -736,6 +768,10 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
   .nav-links { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(10,14,23,0.98); flex-direction: column; padding: 2rem; gap: 1.5rem; border-bottom: 1px solid var(--border); }
   .nav-links.active { display: flex; }
   .hamburger { display: flex; }
+  .nav-actions { gap: 0.75rem; }
+  .nav-cv { padding: 7px 12px; font-size: 0.72rem; }
+  .tw-clock { padding-left: 8px; margin-left: 8px; font-size: 0.68rem; }
+  .tw-title { font-size: 0.68rem; }
 
   .section { padding: 3.5rem 1rem; }
   .section-header { margin-bottom: 2rem; }
@@ -861,16 +897,22 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
   <div class="nav-inner">
     <div class="nav-logo">VM.</div>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about"><span class="nav-num">01</span>About</a></li>
+      <li><a href="#skills"><span class="nav-num">02</span>Skills</a></li>
+      <li><a href="#projects"><span class="nav-num">03</span>Projects</a></li>
+      <li><a href="#experience"><span class="nav-num">04</span>Experience</a></li>
+      <li><a href="#education"><span class="nav-num">05</span>Education</a></li>
+      <li><a href="#contact"><span class="nav-num">06</span>Contact</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-actions">
+      <a href="Veera_Maddula.pdf" class="nav-cv" download>
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        <span>Resume</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -904,6 +946,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
             <span class="tw-dot" style="background:#ffbd2e;"></span>
             <span class="tw-dot" style="background:#28c840;"></span>
             <span class="tw-title">veera@cloud: ~</span>
+            <span class="tw-clock" id="twClock">--:--:-- UTC</span>
           </div>
           <div class="tw-body">
             <div class="tw-line"><span class="tw-prompt">$</span><span class="tw-cmd">whoami</span></div>
@@ -949,7 +992,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
 <section class="section" id="about">
   <div class="section-inner reveal">
     <div class="section-header">
-      <div class="section-label">// About Me</div>
+      <div class="section-label">// 01 &#183; About Me</div>
       <h2 class="section-title">Building <span class="gradient-text">Reliable Systems</span> at Scale</h2>
     </div>
     <div class="about-grid">
@@ -961,31 +1004,37 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
             <div class="highlight-icon">⚡</div>
             <div class="highlight-title">Automation First</div>
             <div class="highlight-desc">Terraform, Ansible, CI/CD, GitOps</div>
+            <div class="highlight-stat">30+ services provisioned as code</div>
           </div>
           <div class="highlight-card">
             <div class="highlight-icon">🔭</div>
             <div class="highlight-title">Observability</div>
             <div class="highlight-desc">Datadog, Grafana, Prometheus, ELK</div>
+            <div class="highlight-stat">SLI dashboards across 4 regions</div>
           </div>
           <div class="highlight-card">
             <div class="highlight-icon">🛡️</div>
             <div class="highlight-title">Reliability</div>
             <div class="highlight-desc">SLIs, SLOs, error budgets, on call</div>
+            <div class="highlight-stat">300+ P1 incidents led</div>
           </div>
           <div class="highlight-card">
             <div class="highlight-icon">☁️</div>
             <div class="highlight-title">Cloud Native</div>
             <div class="highlight-desc">Kubernetes, EKS, ECS, Docker, Helm</div>
+            <div class="highlight-stat">30+ microservices deployed</div>
           </div>
           <div class="highlight-card">
             <div class="highlight-icon">🌐</div>
             <div class="highlight-title">Multi Cloud</div>
             <div class="highlight-desc">AWS, Azure, GCP</div>
+            <div class="highlight-stat">4 global regions on AWS</div>
           </div>
           <div class="highlight-card">
             <div class="highlight-icon">🧠</div>
             <div class="highlight-title">AIOps</div>
             <div class="highlight-desc">Anomaly detection, auto remediation</div>
+            <div class="highlight-stat">~25% faster incident recovery</div>
           </div>
         </div>
       </div>
@@ -1011,7 +1060,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
 <section class="section" id="skills">
   <div class="section-inner reveal">
     <div class="section-header">
-      <div class="section-label">// Tech Stack</div>
+      <div class="section-label">// 02 &#183; Tech Stack</div>
       <h2 class="section-title">Skills & <span class="gradient-text">Technologies</span></h2>
     </div>
     <div class="skills-container">
@@ -1188,7 +1237,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
 <section class="section" id="projects">
   <div class="section-inner reveal">
     <div class="section-header">
-      <div class="section-label">// My Work</div>
+      <div class="section-label">// 03 &#183; My Work</div>
       <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
     </div>
     <div class="projects-carousel">
@@ -1216,12 +1265,12 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
             </a>
           </div>
-          <h3 class="project-title">The Holy Cross — Bar &amp; Restaurant Management System</h3>
-          <p class="project-desc">Full-stack management platform for a bar and restaurant, owned end-to-end from concept through deployment. Role-based admin with granular per-user permissions, a table booking engine with conflict detection and manager approval, kiosk-style staff clock-in with photo capture, and a cash accountability ledger — shipped via a GitOps CI/CD pipeline.</p>
+          <h3 class="project-title">The Holy Cross Bar and Restaurant Platform</h3>
+          <p class="project-desc">A hospitality business was running table bookings, staff hours, and cash handling on paper and phone calls. I designed and shipped the platform that replaced all three, owning the architecture, data model, role hierarchy, security review, and third party integrations from first commit to production.</p>
           <div class="project-goals">
-            <div class="project-goal-item">🔐 Role-based access with per-user permissions</div>
-            <div class="project-goal-item">📅 Booking engine with conflict detection &amp; calendar sync</div>
-            <div class="project-goal-item">🚀 GitOps CI/CD deployment pipeline</div>
+            <div class="project-goal-item">📅 Conflict aware booking engine ended double bookings</div>
+            <div class="project-goal-item">🔐 7+ staff roles, per feature permissions, PIN kiosk clock in</div>
+            <div class="project-goal-item">🧱 1,400 line data layer split into 15 modules, zero regressions</div>
           </div>
           <div class="project-tags">
             <span class="project-tag">Node.js</span>
@@ -1263,11 +1312,11 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
             </a>
           </div>
           <h3 class="project-title">OpenTelemetry Astronomy Shop</h3>
-          <p class="project-desc">Microservice-based distributed system deployed on AWS EKS demonstrating OpenTelemetry instrumentation with Grafana, Prometheus, and Jaeger for full-stack observability.</p>
+          <p class="project-desc">A polyglot microservice shop on AWS EKS where no single log tells you why checkout is slow. I instrumented the services with OpenTelemetry and wired traces, metrics, and logs into one view, so a slow request resolves to the exact service and span instead of a guess.</p>
           <div class="project-goals">
-            <div class="project-goal-item">📡 Distributed tracing & observability</div>
-            <div class="project-goal-item">🧩 Microservice architecture on EKS</div>
-            <div class="project-goal-item">🔌 Grafana, Prometheus & Jaeger dashboards</div>
+            <div class="project-goal-item">📡 One trace follows a request across the full checkout path</div>
+            <div class="project-goal-item">🔌 Grafana, Prometheus and Jaeger fed by a single collector</div>
+            <div class="project-goal-item">🧩 Helm rebuilds the whole stack on a clean EKS cluster</div>
           </div>
           <div class="project-tags">
             <span class="project-tag">OpenTelemetry</span>
@@ -1306,11 +1355,11 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
             </a>
           </div>
           <h3 class="project-title">AWS Infrastructure as Code</h3>
-          <p class="project-desc">Production-ready, multi-tier AWS infrastructure using modular Terraform. Features VPC across multiple AZs, auto-scaling, encrypted RDS, and comprehensive observability with remote state management.</p>
+          <p class="project-desc">Modular Terraform that stands up a production shaped AWS environment, network through database, from an empty account. Built so dev and prod share one module set instead of drifting copies, with remote state and locking so two engineers cannot overwrite each other.</p>
           <div class="project-goals">
-            <div class="project-goal-item">🏗️ Multi-AZ high availability architecture</div>
-            <div class="project-goal-item">📦 Modular & reusable Terraform code</div>
-            <div class="project-goal-item">💰 Cost-optimized deployment ($70-110/mo)</div>
+            <div class="project-goal-item">🏗️ Multi AZ VPC, auto scaling, encrypted RDS</div>
+            <div class="project-goal-item">📦 One module set serves every environment</div>
+            <div class="project-goal-item">💰 Runs at 70 to 110 dollars a month</div>
           </div>
           <div class="project-tags">
             <span class="project-tag">Terraform</span>
@@ -1347,11 +1396,11 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
             </div>
           </div>
           <h3 class="project-title">Jenkins CI/CD Pipeline</h3>
-          <p class="project-desc">End-to-end CI/CD pipeline with Jenkins automating build, test, and deployment stages for containerized applications. Demonstrates pipeline-as-code with Jenkinsfile, Docker integration, and automated testing.</p>
+          <p class="project-desc">Pipeline as code that carries a commit to a deployed container with no manual steps. The Jenkinsfile owns build, test, image push, and a gated deploy, so the pipeline behaves identically on any agent and a failed test stops the release rather than a person catching it.</p>
           <div class="project-goals">
-            <div class="project-goal-item">⚙️ Pipeline-as-Code with Jenkinsfile</div>
-            <div class="project-goal-item">🐳 Docker build & push automation</div>
-            <div class="project-goal-item">✅ Automated testing & deployment gates</div>
+            <div class="project-goal-item">⚙️ Build, test, push and deploy in one Jenkinsfile</div>
+            <div class="project-goal-item">🐳 Images tagged and pushed on every green build</div>
+            <div class="project-goal-item">✅ Deploy gated on automated tests</div>
           </div>
           <div class="project-tags">
             <span class="project-tag">Jenkins</span>
@@ -1385,17 +1434,17 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
             </a>
           </div>
-          <h3 class="project-title">ReviewApp — Full-Stack Web App</h3>
-          <p class="project-desc">A full-stack review application built with TypeScript and modern frontend technologies. Enables users to browse, submit, and manage reviews with a clean, responsive interface.</p>
+          <h3 class="project-title">ReviewApp Full Stack Platform</h3>
+          <p class="project-desc">A TypeScript review application built to stay fluent in the application half of the stack I operate. Users browse, submit, and manage reviews against a REST API, typed end to end so a change to the API contract breaks the build instead of breaking production.</p>
           <div class="project-goals">
-            <div class="project-goal-item">💻 TypeScript frontend with modern UI</div>
-            <div class="project-goal-item">🔄 RESTful API integration</div>
-            <div class="project-goal-item">📱 Responsive design across devices</div>
+            <div class="project-goal-item">💻 Typed end to end, client through API</div>
+            <div class="project-goal-item">🔄 REST integration with client side validation</div>
+            <div class="project-goal-item">📱 Responsive from phone to desktop</div>
           </div>
           <div class="project-tags">
             <span class="project-tag">TypeScript</span>
             <span class="project-tag">React</span>
-            <span class="project-tag">Full-Stack</span>
+            <span class="project-tag">Full Stack</span>
             <span class="project-tag">REST API</span>
           </div>
           <a href="https://github.com/VeeraMaddula/Reviewapp" target="_blank" class="project-link">
@@ -1414,7 +1463,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
 <section class="section" id="experience">
   <div class="section-inner reveal">
     <div class="section-header">
-      <div class="section-label">// Career</div>
+      <div class="section-label">// 04 &#183; Career</div>
       <h2 class="section-title">Professional <span class="gradient-text">Experience</span></h2>
     </div>
     <div class="timeline">
@@ -1424,7 +1473,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
         <div class="timeline-date">Feb 2026 – Present</div>
         <div class="timeline-card">
           <div class="timeline-role">Freelance Senior Systems Engineer</div>
-          <div class="timeline-company">Booking &amp; Staff Operations Platform — Dublin, Ireland</div>
+          <div class="timeline-company">Booking &amp; Staff Operations Platform, Dublin, Ireland</div>
           <div class="timeline-client">Client: Garcijo Investments Ltd</div>
           <div class="timeline-desc">
             <p>Designed and delivered a full-stack reservation and staff-operations platform for a hospitality business, owning the architecture, data model, role hierarchy, security posture, and third-party integrations end to end.</p>
@@ -1433,7 +1482,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
               <li>Built a conflict-aware booking engine with best-fit table assignment, double-booking prevention, and manager approval workflow</li>
               <li>Implemented role-based access control across 7+ staff roles with granular per-feature permissions</li>
               <li>Delivered a staff kiosk system (camera clock-in/out, PIN auth with brute-force lockout, duty-window scheduling) and two-way Google Calendar sync</li>
-              <li>Led a full security review — CSRF protection, rate limiting, session hardening, and dependency CVE remediation</li>
+              <li>Led a full security review covering CSRF protection, rate limiting, session hardening, and dependency CVE remediation</li>
               <li>Evaluated and integrated third-party providers (Resend for email, Sendmode for SMS) on cost and feature trade-offs</li>
             </ul>
             <div class="achievement-badge">
@@ -1448,7 +1497,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
         <div class="timeline-date">Jul 2023 – Jul 2024</div>
         <div class="timeline-card">
           <div class="timeline-role">Site Reliability Engineer</div>
-          <div class="timeline-company">NetEnrich Technologies — Hyderabad, India</div>
+          <div class="timeline-company">NetEnrich Technologies, Hyderabad, India</div>
           <div class="timeline-client">Resolution Intelligence Cloud (AIOps / SecOps Platform)</div>
           <div class="timeline-desc">
             <p>Drove reliability, scalability, and observability for a multi-tenant AIOps/SecOps platform on AWS, built from microservices and event-driven pipelines serving enterprise customers.</p>
@@ -1469,7 +1518,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
         <div class="timeline-date">Jan 2020 – Sep 2023</div>
         <div class="timeline-card">
           <div class="timeline-role">Site Reliability Engineer / Cloud Operations</div>
-          <div class="timeline-company">NetEnrich Technologies — Hyderabad, India</div>
+          <div class="timeline-company">NetEnrich Technologies, Hyderabad, India</div>
           <div class="timeline-client">Client: Disney Interactive</div>
           <div class="timeline-desc">
             <p>Supported large-scale, multi-tenant SaaS production systems on AWS across four global regions, driving reliability, automation, and observability for microservice-based e-commerce platforms.</p>
@@ -1498,7 +1547,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
 <section class="section" id="education">
   <div class="section-inner reveal">
     <div class="section-header">
-      <div class="section-label">// Credentials</div>
+      <div class="section-label">// 05 &#183; Credentials</div>
       <h2 class="section-title">Education & <span class="gradient-text">Certifications</span></h2>
     </div>
 
@@ -1532,7 +1581,7 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
 <section class="section" id="contact">
   <div class="section-inner reveal">
     <div class="section-header">
-      <div class="section-label">// Let's Connect</div>
+      <div class="section-label">// 06 &#183; Let&#39;s Connect</div>
       <h2 class="section-title">Get in <span class="gradient-text">Touch</span></h2>
     </div>
     <div class="contact-cta-center">
@@ -1728,6 +1777,20 @@ document.addEventListener('mousemove', (e) => {
     pill.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
   });
 });
+
+// ── Live UTC clock in the terminal title bar ──
+(function() {
+  const clock = document.getElementById('twClock');
+  if (!clock) return;
+  function tick() {
+    const now = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    clock.textContent = pad(now.getUTCHours()) + ':' + pad(now.getUTCMinutes())
+      + ':' + pad(now.getUTCSeconds()) + ' UTC';
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
 
 // ── Projects Carousel: clone the cards so the roll loops seamlessly ──
 (function() {
